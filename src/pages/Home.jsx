@@ -1,31 +1,37 @@
 import Axios from "axios";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
+import UserHomeSession from "./UserHomeSession";
+import { useState } from "react";
+import AdminHomeSession from "./AdminHomeSession";
+
+
 
 const Home = () => {
 
-  const navigate = useNavigate();
+  const [ click, setClick ] = useState("");
+
 
   const handleUser = () => {
-    navigate("/user");
+    setClick("user");
   };
   const handleAdmin = () => {
-    navigate("/admin")
+    setClick("admin")
   };
 
     return (
-    <div className="h-screen flex justify-center bg-[#27445D] ">
+    <div className="min-h-screen flex justify-center bg-[#27445D] ">
         <section className="relative">
-        <nav className="flex flex-row justify-end p-5 pr-30 border-b-1 fixed top-0 right-0 left-0">
-          <ul className="flex gap-15 font-bold text-white">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/">Owner</Link>
+          <nav className="flex flex-row justify-end p-5 pr-30 border-b-1 fixed top-0 right-0 left-0">
+            <ul className="flex gap-15 font-bold text-white">
+              <li>
+                <Link to="/">Home</Link>
               </li>
-          </ul>
-        </nav>
-      </section>
+              <li>
+                <Link to="/Owner">Owner</Link>
+                </li>
+            </ul>
+          </nav>
+        </section>
 
 
       <main className="flex w-full justify-center pt-[80px]">
@@ -43,8 +49,9 @@ const Home = () => {
             onClick={handleAdmin}
             className="bg-white shadow-2xl p-4 font-bold rounded-xl hover:bg-[#008170] hover:scale-105 duration-300 hover:text-white">Admin Home Sector</button>
           </section>
-          <section>
-
+          <section >
+              {click === "user" ? <UserHomeSession /> : null}
+              {click === "admin" ? <AdminHomeSession /> : null}
           </section>
         </div>
       </main>
